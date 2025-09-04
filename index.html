@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CrystalSHOP WERSJA BETA™</title>
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+  <style>
+    body {
+      background-color: white;
+      color: #333;
+      font-family: sans-serif;
+    }
+
+    header, footer {
+      padding: 1.5rem;
+      text-align: center;
+      background-color: white;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    main {
+      max-width: 1000px;
+      margin: 2rem auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      padding: 0 1rem;
+    }
+
+    .product {
+      border: 1px solid #eee;
+      border-radius: 1rem;
+      padding: 1rem;
+      overflow: hidden;
+      background-color: #fafafa;
+      transform: translateY(30px);
+      opacity: 0;
+      animation: slideIn 0.8s ease-out forwards;
+    }
+
+    .product:nth-child(1) { animation-delay: 0.2s; }
+    .product:nth-child(2) { animation-delay: 0.4s; }
+    .product:nth-child(3) { animation-delay: 0.6s; }
+
+    @keyframes slideIn {
+      from { transform: translateY(30px); opacity: 0; }
+      to   { transform: translateY(0); opacity: 1; }
+    }
+
+    .product img {
+      width: 100%;
+      border-radius: 0.75rem;
+      transition: transform 0.4s ease;
+    }
+    .product:hover img {
+      transform: scale(1.05);
+    }
+
+    button {
+      background-color: #3b82f6;
+      color: white;
+      padding: 0.6rem 1.2rem;
+      border: none;
+      border-radius: 0.75rem;
+      font-size: 1rem;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: box-shadow 0.3s ease;
+    }
+
+    button:hover {
+      box-shadow: 0 8px 15px rgba(59, 130, 246, 0.4);
+      animation: pulse 1s ease infinite alternate;
+    }
+
+    @keyframes pulse {
+      from { transform: scale(1); }
+      to   { transform: scale(1.03); }
+    }
+
+    section.cart {
+      max-width: 700px;
+      margin: 2rem auto;
+      padding: 1rem;
+      border-top: 1px solid #eee;
+    }
+
+    .fade-in {
+      animation: fadeIn 1s ease-in-out forwards;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body x-data="{ cart: [] }">
+  <header>
+    <h1 style="font-size:1.75rem; font-weight:bold;">WERSJA BETA CrystalSHOP</h1>
+    <div>🛒 <span x-text="cart.length"></span></div>
+  </header>
+
+  <main>
+    <div class="product fade-in">
+      <img src="https://via.placeholder.com/300x200" alt="Produkt 1" />
+      <h2>GRA WERSJA STANDARDOWA</h2>
+      <p><strong>za darmo</strong></p>
+      <button @click="cart.push('Produkt 1')">Dodaj do koszyka</button>
+    </div>
+    <div class="product fade-in">
+      <img src="https://via.placeholder.com/300x200" alt="Produkt 2" />
+      <h2>GRA WERSJA +</h2>
+        <p>1,000₿ na start</p>
+        <p>UNIKATOWE UBRANIA</p>
+        <p>UNIKATOWE BRONIE</p>
+        <p>RANGA PRZECHUJ</p>
+      <p><strong>8 zł</strong></p>
+      <button @click="cart.push('Produkt 2')">Dodaj do koszyka</button>
+    </div>
+    <div class="product fade-in">
+      <img src="https://via.placeholder.com/300x200" alt="Produkt 3" />
+      <h2>GRA WERSJA ULTIMSTE</h2>
+      <p>28,000₿ na start</p>
+      <p>UNIKATOWE UBRANIA</p>
+        <p>RANGA ELITE</p>
+        <P>UNIKATOWE BRONIE</P>
+        <p>UNIKATOWY SAMOCHÓD</p>
+      <p><strong>26 zł</strong></p>
+      <button @click="cart.push('Produkt 3')">Dodaj do koszyka</button>
+    </div>
+  </main>
+
+  <section class="cart">
+    <h2>Koszyk</h2>
+    <template x-if="cart.length === 0">
+      <p>Koszyk jest pusty.</p>
+    </template>
+    <ul>
+      <template x-for="(item, index) in cart" :key="index">
+        <li style="display:flex;justify-content:space-between;padding:0.5rem 0;border-bottom:1px solid #eee;">
+          <span x-text="item"></span>
+          <button @click="cart.splice(index,1)" style="background:none;color:#ef4444;padding:0;border:none;cursor:pointer;">Usuń</button>
+        </li>
+      </template>
+    </ul>
+  </section>
+
+  <footer>© 2025 WERSJA BETA CrystalSHOP. Wszelkie prawa zastrzeżone. Foglabel</footer>
+</body>
+</html>
